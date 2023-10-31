@@ -20,7 +20,7 @@
           the value should be the movie title
           and the displayed text should be Title: <movie_title>, Summary:<movie_summary>, Rating: <movie_rating> -->
 
-  <form th:method="POST" th:action="@{/}">
+  <form th:method="POST" th:action="@{/ticketOrder}">
     <div th:each="movie : ${Movies}">
       <input type="radio"
              th:name="selected-movie"
@@ -37,6 +37,22 @@
     <br/>
     <input type="submit" value="Submit">
   </form>
+
+  <form th:method="GET" th:action="@{/}">
+    <div>
+      <h2>Search movies:</h2>
+      <label>Title: <input type="text" name="sTitle" required></label>
+      <label>Rating: <input type="number" name="sRating" min="1" max="5" required></label>
+      <input type="submit" value="Search">
+    </div>
+  </form>
+
+  <div>
+    <ul th:each="sMovie : ${SearchedMovies}">
+      <li th:text="${sMovie.getTitle()}"></li>
+    </ul>
+  </div>
+
 </main>
 </body>
 </html>
