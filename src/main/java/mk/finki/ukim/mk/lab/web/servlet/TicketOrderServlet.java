@@ -1,4 +1,4 @@
-package mk.finki.ukim.mk.lab.web;
+package mk.finki.ukim.mk.lab.web.servlet;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -16,7 +16,7 @@ import org.thymeleaf.web.servlet.JakartaServletWebApplication;
 
 import java.io.IOException;
 
-@WebServlet(urlPatterns = "/ticketOrder")
+@WebServlet(urlPatterns = "/servlet/ticketOrder")
 public class TicketOrderServlet extends HttpServlet {
 
     final TicketOrderServiceImpl ticketOrderService;
@@ -30,7 +30,7 @@ public class TicketOrderServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String selectedMovie = req.getParameter("selected-movie");
+        String selectedMovie = req.getParameter("selectedMovie");
         long numTickets = Long.parseLong(req.getParameter("numTickets"));
 
         IWebExchange webExchange = JakartaServletWebApplication

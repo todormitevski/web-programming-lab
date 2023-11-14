@@ -1,4 +1,4 @@
-package mk.finki.ukim.mk.lab.web;
+package mk.finki.ukim.mk.lab.web.servlet;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -13,11 +13,10 @@ import org.thymeleaf.web.IWebExchange;
 import org.thymeleaf.web.servlet.JakartaServletWebApplication;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@WebServlet(urlPatterns = "")
+@WebServlet(urlPatterns = "/servlet/movies")
 public class MovieListServlet extends HttpServlet {
     private final MovieServiceImpl movieServiceImpl;
     private final SpringTemplateEngine springTemplateEngine;
@@ -35,7 +34,7 @@ public class MovieListServlet extends HttpServlet {
                 .buildExchange(req,resp);
 
         WebContext webContext = new WebContext(webExchange);
-        webContext.setVariable("Movies",movieServiceImpl.listAll());
+        webContext.setVariable("movies",movieServiceImpl.listAll());
 
         if(req.getParameter("sTitle") != null && req.getParameter("sRating") != null){
             String searchedTitle = req.getParameter("sTitle");
