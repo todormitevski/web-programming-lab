@@ -57,13 +57,23 @@ public class MovieRepository {
         movieList.removeIf(m -> m.getId().equals(id));
     }
 
-    public Optional<Movie> saveMovie(String title, String summary, double rating, Production production){
+    public Optional<Movie> saveMovie(String title, String summary, double rating, Production production, Long movieId){
         if(production == null)
             throw new ProductionNotFoundException();
 
         Movie movie = new Movie(title, summary, rating, production);
-        movieList.removeIf(m -> m.getTitle().equals(title));
+
+        if(movieId != 0)
+            movie.setId(movieId);
+
+        movieList.removeIf(m -> m.getId().equals(movie.getId()));
         movieList.add(movie);
         return Optional.of(movie);
+    }
+
+    public Optional<Movie> findById(Long id){
+        return movieList.stream()
+                .filter(i -> i.getId().equals(id))
+                .findFirst();
     }
 }

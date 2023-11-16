@@ -1,14 +1,14 @@
 package mk.finki.ukim.mk.lab.web.controller;
 
+import mk.finki.ukim.mk.lab.model.Movie;
+import mk.finki.ukim.mk.lab.model.Production;
 import mk.finki.ukim.mk.lab.service.impl.MovieServiceImpl;
 import mk.finki.ukim.mk.lab.service.impl.ProductionServiceImpl;
-import mk.finki.ukim.mk.lab.service.impl.TicketOrderServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @Controller
@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class MovieController {
 
     private final MovieServiceImpl movieService;
+    private final ProductionServiceImpl productionService;
 
-    public MovieController(MovieServiceImpl movieService) {
+    public MovieController(MovieServiceImpl movieService, ProductionServiceImpl productionService) {
         this.movieService = movieService;
+        this.productionService = productionService;
     }
 
     @GetMapping
@@ -38,13 +40,29 @@ public class MovieController {
             model.addAttribute("searchedMovies",
                 movieService.searchMoviesByTitleAndRating(searchedTitle, searchedRating));
 
-        return "listMovies.html";
+        return "listMovies";
     }
 
-//    @GetMapping("edit/{movieId}")
-//    public String editMovie(){
-//
-//    }
+    @GetMapping("/edit/{movieId}")
+    public String editMovie(@PathVariable Long movieId,
+                            Model model){
+
+        if (this.movieService.findById(movieId).isPresent()) {
+            Movie movies = this.movieService.findById(movieId).get();
+            List<Production> productions = this.productionService.findAll();
+            model.addAttribute("productions", productions);
+            model.addAttribute("movies", movies);
+            return "add-movie";
+        }
+        return "redirect:/movies?error=MovieNotFound";
+    }
+
+    @GetMapping("/add-form")
+    public String addMoviePage(Model model) {
+        List<Production> productions = this.productionService.findAll();
+        model.addAttribute("productions", productions);
+        return "add-movie";
+    }
 
     @GetMapping("/delete/{id}")
     public String deleteMovie(@PathVariable Long id){
@@ -52,10 +70,14 @@ public class MovieController {
         return "redirect:/movies";
     }
 
-//    public String saveMovie(@RequestParam String title,
-//                            @RequestParam String summary,
-//                            @RequestParam double rating,
-//                            @RequestParam Long productionId){
-//
-//    }
+    @PostMapping("/add")
+    public String saveMovie(@RequestParam String title,
+                            @RequestParam String summary,
+                            @RequestParam double rating,
+                            @RequestParam Long productionId,
+                            @RequestParam Long movieId){
+
+        this.movieService.saveMovie(title, summary, rating, productionId, movieId);
+        return "redirect:/movies";
+    }
 }

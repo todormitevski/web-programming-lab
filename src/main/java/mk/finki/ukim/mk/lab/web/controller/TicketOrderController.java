@@ -30,11 +30,17 @@ public class TicketOrderController {
             model.addAttribute("error", error);
         }
 
-        model.addAttribute("cname", "todormitevski");
-        model.addAttribute("address", request.getRemoteAddr());
+        String clientName = "todormitevski";
+        String remoteAddr = request.getRemoteAddr();
+
+        ticketOrderService.placeOrder(
+                selectedMovie, clientName, remoteAddr, (int) numTickets);
+
+        model.addAttribute("cname", clientName);
+        model.addAttribute("address", remoteAddr);
         model.addAttribute("movie", selectedMovie);
         model.addAttribute("numTickets", numTickets);
 
-        return "orderConfirmation.html";
+        return "orderConfirmation";
     }
 }

@@ -11,5 +11,6 @@ public interface MovieService {
     List<Movie> searchMovies(String text);
     List<Movie> searchMoviesByTitleAndRating(String text, Double rating);
     void deleteMovieById(Long id);
-    Optional<Movie> saveMovie(String title, String summary, double rating, Production production);
+    Optional<Movie> saveMovie(String title, String summary, double rating, Long production, Long movieId);
+    Optional<Movie> findById(Long movieId);
 }

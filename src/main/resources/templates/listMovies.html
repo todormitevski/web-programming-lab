@@ -7,6 +7,14 @@
     body {
       width: 800px;
       margin: auto;
+      padding: 10px;
+    }
+    .greyBox {
+      background-color: gray;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
+      transition: box-shadow 0.3s ease;
     }
   </style>
 </head>
@@ -15,47 +23,59 @@
   <h1>Welcome to our Movie Ticket Shop App</h1>
 </header>
 <main>
-  <h2>Choose movie:</h2>
+
+  <div class="greyBox">
+    <h2>Choose movie:</h2>
   <!-- Display radio buttons for each movie,
           the value should be the movie title
           and the displayed text should be Title: <movie_title>, Summary:<movie_summary>, Rating: <movie_rating> -->
 
-  <form th:method="POST" th:action="@{/ticketOrder}">
-    <div th:each="movie : ${movies}">
-      <input type="radio"
-             th:name="selectedMovie"
-             th:id="'movie-' + ${movie.getTitle()}"
-             th:value="${movie.getTitle()}">
-      <label th:for="'movie-' + ${movie.getTitle()}"
-             th:text="${'Title: ' + movie.getTitle() +
+    <form th:method="POST" th:action="@{/ticketOrder}">
+      <div th:each="movie : ${movies}">
+        <input type="radio"
+               th:name="selectedMovie"
+               th:id="'movie-' + ${movie.getTitle()}"
+               th:value="${movie.getTitle()}">
+        <label th:for="'movie-' + ${movie.getTitle()}"
+               th:text="${'Title: ' + movie.getTitle() +
               ', Summary: ' + movie.getSummary() +
               ', Rating: ' + movie.getRating() +
               ', Production: ' + movie.getProduction()}"></label>
-      <a th:href="@{/movies/edit/{id} (id=${movie.getId()})}">Edit</a>
-      <a th:href=" @{/movies/delete/{id} (id=${movie.getId()})}">Delete</a>
-    </div>
+        <a th:href="@{/movies/edit/{id} (id=${movie.getId()})}">Edit</a>
+        <a th:href="@{/movies/delete/{id} (id=${movie.getId()})}">Delete</a>
+      </div>
 
-    <h2>Choose number of tickets:</h2>
-    <input type="number" name="numTickets" min="1" max="10"><br/>
-    <br/>
-    <input type="submit" value="Submit">
-  </form>
+      </br>
 
-  <form th:method="GET" th:action="@{/movies}">
-    <div>
-      <h2>Search movies:</h2>
-      <label>Title: <input type="text" name="searchedTitle" required></label>
-      <label>Rating: <input type="number" name="searchedRating" min="1" max="5" required></label>
-      <input type="submit" value="Search">
-    </div>
-  </form>
+      <div class="greyBox">
+        <h2>Choose number of tickets:</h2>
+        <input type="number" name="numTickets" min="1" max="10"><br/>
+        <br/>
+        <input type="submit" value="Submit">
+      </div>
+    </form>
 
-  <div>
+    <form th:method="GET" th:action="@{/movies}">
+      <div class="greyBox">
+        <h2>Search movies:</h2>
+        <label>Title: <input type="text" name="searchedTitle" required></label>
+        <label>Rating: <input type="number" name="searchedRating" min="1" max="5" required></label>
+        <input type="submit" value="Search">
+      </div>
+    </form>
+
     <ul th:each="sMovie : ${searchedMovies}">
       <li th:text="${sMovie.getTitle()}"></li>
     </ul>
-  </div>
 
+    <div class="greyBox">
+      <form th:method="GET" th:action="@{/movies/add-form}">
+        <h3>Add a movie</h3>
+        <input type="submit" value="Add movie">
+      </form>
+    </div>
+
+  </div>
 </main>
 </body>
 </html>

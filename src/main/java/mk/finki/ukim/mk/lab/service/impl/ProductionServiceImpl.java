@@ -6,6 +6,7 @@ import mk.finki.ukim.mk.lab.service.ProductionService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductionServiceImpl implements ProductionService {
@@ -19,5 +20,10 @@ public class ProductionServiceImpl implements ProductionService {
     @Override
     public List<Production> findAll() {
         return productionRepository.findAll();
+    }
+
+    @Override
+    public Optional<Production> findById(Long id) {
+        return productionRepository.findById(id);
     }
 }

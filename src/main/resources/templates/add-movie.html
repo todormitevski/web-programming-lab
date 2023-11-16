@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Add movie</title>
+</head>
+<body>
+<div>
+  <div>
+    <form action="/movies/add" method="POST">
+      <input id="movieId" type="hidden" name="movieId"
+             th:value="(${movies} != null ? ${movies.getId()} : '0')">
+      <label for="title">Movie name</label>
+      <input type="text" id="title" name="title"
+             th:value="(${movies} !=null ? ${movies.getTitle()} : '')"
+             required placeholder="Enter product name">
+
+      <label for="summary">Summary</label>
+      <input type="text" id="summary" name="summary"
+             th:value="(${movies} !=null ? ${movies.getSummary()} : '')"
+             required placeholder="Enter product summary">
+
+      <label for="rating">Rating</label>
+      <input type="text" id="rating" name="rating"
+             th:value="(${movies} !=null ? ${movies.getRating()} : '')"
+             required placeholder="Enter product rating">
+
+      <div>
+        <label for="productions">Production</label>
+        <select name="productionId" id="productions">
+          <option th:if="${movies} != null"
+                  th:selected="${movies.getProduction() != null &&
+                                    movies.getProduction().getId() == prod.getId()}"
+                  th:each="prod : ${productions}"
+                  th:value="${prod.getId()}"
+                  th:text="${prod.getName()}">
+          </option>
+          <option th:if="${movies} == null"
+                  th:each="prod : ${productions}"
+                  th:value="${prod.getId()}"
+                  th:text="${prod.getName()}">
+          </option>
+        </select>
+
+      </div>
+
+      <button type="submit">Submit</button>
+      <a type="button" href="/movies">Back</a>
+    </form>
+  </div>
+
+</div>
+</body>
+</html>
