@@ -1,7 +1,8 @@
 package mk.finki.ukim.mk.lab.service.impl;
 
 import mk.finki.ukim.mk.lab.model.Production;
-import mk.finki.ukim.mk.lab.repository.ProductionRepository;
+import mk.finki.ukim.mk.lab.repository.impl.InMemoryProductionRepository;
+import mk.finki.ukim.mk.lab.repository.jpa.ProductionRepository;
 import mk.finki.ukim.mk.lab.service.ProductionService;
 import org.springframework.stereotype.Service;
 

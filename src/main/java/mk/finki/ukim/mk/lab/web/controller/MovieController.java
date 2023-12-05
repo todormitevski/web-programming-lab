@@ -18,6 +18,7 @@ public class MovieController {
     private final MovieServiceImpl movieService;
     private final ProductionServiceImpl productionService;
 
+
     public MovieController(MovieServiceImpl movieService, ProductionServiceImpl productionService) {
         this.movieService = movieService;
         this.productionService = productionService;
@@ -66,7 +67,7 @@ public class MovieController {
 
     @GetMapping("/delete/{id}")
     public String deleteMovie(@PathVariable Long id){
-        this.movieService.deleteMovieById(id);
+        this.movieService.deleteById(id);
         return "redirect:/movies";
     }
 

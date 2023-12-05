@@ -41,14 +41,12 @@ public class TicketOrderServlet extends HttpServlet {
 
         TicketOrder ticketOrder = new TicketOrder(
                 selectedMovie,
-                "Todor Mitevski",
-                req.getRemoteAddr(),
                 numTickets
         );
 
         webContext.setVariable("movie", ticketOrder.getMovieTitle());
-        webContext.setVariable("cname", ticketOrder.getClientName());
-        webContext.setVariable("address", ticketOrder.getClientAddress());
+        webContext.setVariable("cname", "todorm");
+        webContext.setVariable("address", "address");
         webContext.setVariable("numTickets", ticketOrder.getNumberOfTickets());
 
         this.springTemplateEngine.process("orderConfirmation.html",

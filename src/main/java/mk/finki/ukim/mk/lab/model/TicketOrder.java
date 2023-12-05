@@ -1,18 +1,27 @@
 package mk.finki.ukim.mk.lab.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class TicketOrder {
     String movieTitle;
-    String clientName;
-    String clientAddress;
     Long numberOfTickets;
 
-    public TicketOrder(String movieTitle, String clientName, String clientAddress, Long numberOfTickets) {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id;
+
+    public TicketOrder(String movieTitle, Long numberOfTickets) {
         this.movieTitle = movieTitle;
-        this.clientName = clientName;
-        this.clientAddress = clientAddress;
         this.numberOfTickets = numberOfTickets;
     }
 }

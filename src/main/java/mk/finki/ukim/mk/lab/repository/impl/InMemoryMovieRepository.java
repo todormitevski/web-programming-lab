@@ -1,4 +1,4 @@
-package mk.finki.ukim.mk.lab.repository;
+package mk.finki.ukim.mk.lab.repository.impl;
 
 import jakarta.annotation.PostConstruct;
 import lombok.Data;
@@ -16,7 +16,7 @@ import java.util.stream.IntStream;
 
 @Data
 @Repository
-public class MovieRepository {
+public class InMemoryMovieRepository {
     public static List<Movie> movieList = null;
 
     @PostConstruct

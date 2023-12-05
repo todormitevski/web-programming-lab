@@ -1,4 +1,4 @@
-package mk.finki.ukim.mk.lab.repository;
+package mk.finki.ukim.mk.lab.repository.impl;
 
 import jakarta.annotation.PostConstruct;
 import mk.finki.ukim.mk.lab.model.TicketOrder;
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class TicketOrderRepository {
+public class InMemoryTicketOrderRepository {
     public static List<TicketOrder> ticketOrderList = null;
 
     @PostConstruct

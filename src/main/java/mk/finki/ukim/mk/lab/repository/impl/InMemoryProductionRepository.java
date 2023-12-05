@@ -1,4 +1,4 @@
-package mk.finki.ukim.mk.lab.repository;
+package mk.finki.ukim.mk.lab.repository.impl;
 
 import jakarta.annotation.PostConstruct;
 import mk.finki.ukim.mk.lab.model.Production;
@@ -10,7 +10,7 @@ import java.util.Optional;
 import java.util.stream.IntStream;
 
 @Repository
-public class ProductionRepository {
+public class InMemoryProductionRepository {
     public static List<Production> productionList = null;
 
     @PostConstruct
