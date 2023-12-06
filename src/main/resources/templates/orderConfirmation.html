@@ -50,5 +50,19 @@
     </tr>
   </table>
 </section>
+
+<section>
+  <form th:method="GET" th:action="@{/ticketOrder}">
+    <h1>List of all ticket orders for user:</h1>
+    <ul th:each="ticketOrder : ${ticketOrders}">
+      <li th:text="${ticketOrder.toString()}"></li>
+    </ul>
+
+    <h3>Filter by date (from date1 to date2)</h3>
+    <label>From: <input type="datetime-local" name="dateFrom" required></label>
+    <label>To: <input type="datetime-local" name="dateTo" required></label>
+    <input type="submit" value="Filter by dates">
+  </form>
+</section>
 </body>
 </html>

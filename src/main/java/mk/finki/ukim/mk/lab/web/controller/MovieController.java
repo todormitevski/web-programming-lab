@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -27,7 +28,7 @@ public class MovieController {
     @GetMapping
     public String getMoviesPage(@RequestParam(required = false) String error,
                                 @RequestParam(required = false) String searchedTitle,
-                                @RequestParam(required = false) Double searchedRating,
+                                @RequestParam(required = false) String searchedRating,
                                 Model model){
 
         if(error != null && !error.isEmpty()){
@@ -37,9 +38,13 @@ public class MovieController {
 
         model.addAttribute("movies", this.movieService.listAll());
 
-        if(searchedTitle != null && searchedRating != null)
-            model.addAttribute("searchedMovies",
-                movieService.searchMoviesByTitleAndRating(searchedTitle, searchedRating));
+        double parsedRating = 0.0;
+        List<Movie> foundMovies = new ArrayList<>();
+        if(searchedTitle != null && searchedRating != null){
+            parsedRating = Double.parseDouble(searchedRating);
+            foundMovies = movieService.searchMoviesByTitleAndRating(searchedTitle, parsedRating);
+            model.addAttribute("searchedMovies", foundMovies);
+        }
 
         return "listMovies";
     }
