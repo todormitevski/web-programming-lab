@@ -21,8 +21,10 @@ public class User {
     private Long id;
 
     private String username;
-    private String name;
-    private String surname;
+
+    @Convert(converter = UserFullnameConverter.class)
+    private UserFullname userFullname;
+
     private String password;
 
     @DateTimeFormat(pattern = "dd-MM-yyyy")
@@ -31,10 +33,9 @@ public class User {
     @ManyToMany
     private List<ShoppingCart> carts;
 
-    public User(String username, String name, String surname, String password, LocalDate dateOfBirth, List<ShoppingCart> carts) {
+    public User(String username, UserFullname userFullname, String password, LocalDate dateOfBirth, List<ShoppingCart> carts) {
         this.username = username;
-        this.name = name;
-        this.surname = surname;
+        this.userFullname = userFullname;
         this.password = password;
         this.dateOfBirth = dateOfBirth;
         this.carts = carts;
