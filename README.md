@@ -30,7 +30,7 @@ The aim of this project is to create a web application that demonstrates profici
 
 **1. Clone the repository:**
    ```sh
-   git clone https://github.com/todormitevski/wp-lab.git
+   git clone https://github.com/todormitevski/web-programming-lab.git
    ```
 **2. Build and run the project:**
    ```sh
